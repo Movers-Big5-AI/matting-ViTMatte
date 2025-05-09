@@ -141,3 +141,7 @@ dmypy.json
 .pyre/
 
 cluster.sh
+
+test_input/
+test_output/
+checkpoint/
