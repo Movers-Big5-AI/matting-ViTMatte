@@ -145,3 +145,4 @@ cluster.sh
 test_input/
 test_output/
 checkpoint/
+test_data
