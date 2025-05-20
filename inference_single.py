@@ -11,9 +11,8 @@ from torchvision.transforms import functional as F
 from detectron2.config import LazyConfig, instantiate
 from detectron2.checkpoint import DetectionCheckpointer
 
-def get_model_config(model_type):
+def get_model_config(model_type, config_path):
     assert model_type in ['vitmatte-s', 'vitmatte-b']
-    config_path = 'configs/common/model.py'
     config = LazyConfig.load(config_path)
 
     if model_type == 'vitmatte-b':
@@ -23,8 +22,8 @@ def get_model_config(model_type):
     
     return config
 
-def load_model(model_type, checkpoint_path):
-    config = get_model_config(model_type)
+def load_model(model_type, checkpoint_path, config_path):
+    config = get_model_config(model_type, config_path)
 
     model = instantiate(config.model)
     model.cuda()
@@ -59,7 +58,7 @@ def visualize_alpha(alpha, sample):
     return image_rgba
 
 def main(sample_path, image_max_size=1024):
-    model = load_model('vitmatte-b', 'checkpoint/ViTMatte_B_DIS.pth')
+    model = load_model('vitmatte-b', 'checkpoint/ViTMatte_B_DIS.pth', 'configs/common/model.py')
     sample = load_sample(sample_path, image_max_size)
 
     with torch.no_grad():
